@@ -1,6 +1,6 @@
 package clipboard
 
 type Clipboard interface {
-	Copy(string) error
-	Paste() ([]byte, error)
+	Copy([]byte)
+	Paste() []byte
 }

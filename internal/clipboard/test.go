@@ -1,17 +1,15 @@
 package clipboard
 
 type TestClipboard struct {
-	Buffer string
+	Buffer []byte
 }
 
-func (tc *TestClipboard) Copy(input string) error {
+func (tc *TestClipboard) Copy(input []byte) {
 	tc.Buffer = input
-
-	return nil
 }
 
-func (tc *TestClipboard) Paste() ([]byte, error) {
-	return []byte(tc.Buffer), nil
+func (tc *TestClipboard) Paste() []byte {
+	return tc.Buffer
 }
 
 func NewTestClipboard() *TestClipboard {

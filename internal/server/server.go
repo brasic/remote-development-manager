@@ -40,10 +40,7 @@ func (s *Server) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	case "status":
 		rw.Write([]byte(`{ "status": "running" }`))
 	case "copy":
-		err := s.clipboard.Copy(command.Arguments[0])
-		if err != nil {
-			log.Printf("error running copy command: %v", err)
-		}
+		s.clipboard.Copy([]byte(command.Arguments[0]))
 	case "open":
 		err := open(command.Arguments[0])
 		if err != nil {
@@ -53,7 +50,7 @@ func (s *Server) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		log.Printf("received stop command, shutting down")
 		s.cancel()
 	case "paste":
-		contents, err := s.clipboard.Paste()
+		contents := s.clipboard.Paste()
 		if err != nil {
 			s.logger.Printf("error running paste command: %v", err)
 		} else {
